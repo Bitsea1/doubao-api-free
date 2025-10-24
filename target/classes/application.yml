@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+--- # ??AI??????
+doubao:
+  # ????????
+  enabled: true
+  # ??API??URL?????????????
+  base-url: https://www.doubao.com
+  # ????????????
+  timeout: 180
+  # ????????????????1???
+  session-ttl: 3600
+  # ????API??????????Bearer Token???
+  api-key: sk-sHf2Sf0ZFMMcmsC5SalYdEHul9R5xqhgW7SbDn4ij5jski4g
+  # ?????????????????????
+  accounts:
+    # ???????
+    - cookie: "_ga=GA1.1.283842130.1737104932; flow_user_country=CN; gd_random=eyJtYXRjaCI6dHJ1ZSwicGVyY2VudCI6MC42NDIyNTUwMjk0MjYzMDYyfQ==.0/lqH7HFA73Zja4AOHkCbSo25KiuG2bOzkBFdgie4z4=; i18next=zh; flow_ssr_sidebar_expand=1; s_v_web_id=verify_mf7o3zod_TeQTOhpy_v3w3_4hh7_99Ac_TV7gHgJrecS2; passport_csrf_token=4f5ca2c9f5d65db386cc30d7ad8bdf7a; passport_csrf_token_default=4f5ca2c9f5d65db386cc30d7ad8bdf7a; passport_mfa_token=CjcX5rmFNqaEYHFGYpIm3lvF6jmNsq%2F5uapPNqLM2rNgufB%2F2Y4LD7UBDp3WvcpibFe1OX29g%2FScGkoKPAAAAAAAAAAAAABPoH6RzLh13I%2FoBOeRtU63fQ8iVywf%2BCIA282CRmY17nXjUofGNx034%2B0w9H5lCYKXaxDeyf8NGPax0WwgAiIBA0R%2BtJ4%3D; d_ticket=ccfc1f680ea9280d69dd20722eafc3ac3d94c; odin_tt=1bae90db5b00b7ba88916MoRnbUfHBdCarU9683KT3AsB67n92UtF2efe2f0a35b885ae02be00fdf21d2441ce6b55594c672d0dd1111e9fa5ab703afd673df1b97; n_mh=-dn9P4qcY5YaMVNeL-G8vC6vi8prnl_Gl11Y7OWlHwvs; passport_auth_status=ef3bb21c0cd113173005f50402c07ae0%2Caacb374b49b206525110d51355fa9987; passport_auth_status_ss=ef3bb21c0cd113173005f50402c07ae0%2Caacb374b49b206525110d51355fa9987; sid_guard=695d01ed533110d07025dfe5d3ed852b%7C1761191367%7C2592000%7CSat%2C+22-Nov-2025+03%3A49%3A27+GMT; uid_tt=0510e7854dd4f4ab5d517fe326f3c614; uid_tt_ss=0510e7854dd4f4ab5d517fe326f3c614; sid_tt=0510e7854dd4f4ab5d517fe326f3c614; sessionid=3aa7bb87c6eeb0906760f16063aed75e; sessionid_ss=3aa7bb87c6eeb0906760f16063aed75e; session_tlb_tag=sttt%7C3%7CaV0B7VMxENBwJd_l0-2FK__________Io2tTbphv9NutK7xmN4R0Fiya_4K2YzCWp9AV-8IcnNY%3D; is_staff_user=false; sid_ucp_v1=1.0.0-KGMzZTAvEt14YScfTDHt2ZiSRqroaYZK98uykgshOTJhZDM3Y2YxZDAKHwiDitDk_MxREMfL5scGGMKxHiAMMLiU87MGOAJA8QcaAmxxIiA2OTAvEt14YScfTDHt2ZiSRqroaYZK98uykgskODUyYg; ssid_ucp_v1=1.0.0-KGMzZTAvEt14YScfTDHt2ZiSRqroaYZK98uykgshOTJhZDM3Y2YxZDAKHwiDitDk_MxREMfL5scGGMKxHiAMMLiU87MGOAJA8QcaAmxxIiA2OTAvEt14YScfTDHt2ZiSRqroaYZK98uykgskODUyYg; ttwid=1%7C9o3KgnjxeMHAWxbU8VyEv-9VtOjOP5QSubdZEz76MzY%7C1760493649%7C3b5f4d256b929c391e797659f243c5a2f151cc950d7d02b3a3670227de8570a2; passport_fe_beating_status=true; _ga_G8EP5CG8VZ=GS2.1.s1761266881$$o54$$g1$$t1761266919$$j22$$l0$$h0"
+      device-id: "7484097257500378660"
+      fp: "verify_mezr9frw_NlsxnFXB_8ZLc_4SYZ_9g8R_bSYVxVWa0MlM"
+      tea-uuid: "7484097239733896756"
+      web-id: "7484097239733896756"
+      ms-token: "SksFlpwGiKDG22bcPst7XYiyBSmjcxhrrOVqeETfu2igEfsHx9p-WUlUU72D0TxkspbID4akPdB4-Qigzojt8mWVRcaycQr7WKmYoRg2g6XkfBbjLvGFGPkWAf96B4aS7XY0bi87Eeq6n9yOiZHtk_AouKljeDp4WgKdsbtgn2Mc"
