@@ -1,23 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration scan="true" scanPeriod="30 seconds">
-    <!-- 修复时间格式：yyyy改为4位，删除多余的y -->
-    <property name="CONSOLE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{36}) - %msg%n" />
+<configuration scan="true" scanPeriod="30 seconds" debug="false">
+    <!-- 基础属性配置 -->
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36}:%L - %msg%n" />
+    <property name="LOG_CHARSET" value="UTF-8" />
+    <property name="LOG_LEVEL_PATTERN" value="%highlight(%-5level) %cyan(%logger{36}:%L)" />
+
+    <!-- 彩色控制台输出格式 -->
+    <property name="CONSOLE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] ${LOG_LEVEL_PATTERN} - %msg%n" />
+
+    <!-- 日志文件存储路径 -->
+    <property name="LOG_FILE_PATH" value="${LOG_FILE:-${LOG_PATH:-${user.home}/logs/doubao-api}}" />
+    <property name="LOG_FILE_NAME" value="doubao-api" />
 
     <!-- 控制台输出 -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>${CONSOLE_LOG_PATTERN}</pattern>
-            <charset>UTF-8</charset>
+            <charset>${LOG_CHARSET}</charset>
         </encoder>
+        <!-- 控制台日志过滤：只输出INFO及以上级别 -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
     </appender>
 
-    <!-- 日志级别：ERROR > WARN > INFO > DEBUG > TRACE -->
-    <root level="INFO">
-        <appender-ref ref="CONSOLE" />
-    </root>
+    <!-- 普通日志文件输出 (INFO级别) -->
+    <appender name="FILE_INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE_PATH}/${LOG_FILE_NAME}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 按天滚动 -->
+            <fileNamePattern>${LOG_FILE_PATH}/${LOG_FILE_NAME}-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- 日志保留30天 -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>${LOG_CHARSET}</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
 
-    <!-- 自定义包日志级别 -->
+    <!-- 错误日志文件输出 (ERROR级别) -->
+    <appender name="FILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE_PATH}/${LOG_FILE_NAME}-error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_FILE_PATH}/${LOG_FILE_NAME}-error-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>${LOG_CHARSET}</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- 多环境日志级别控制 -->
+    <springProfile name="dev">
+        <root level="DEBUG">
+            <appender-ref ref="CONSOLE" />
+        </root>
+    </springProfile>
+
+    <springProfile name="test,prod">
+        <root level="INFO">
+            <appender-ref ref="CONSOLE" />
+            <appender-ref ref="FILE_INFO" />
+            <appender-ref ref="FILE_ERROR" />
+        </root>
+    </springProfile>
+
+    <!-- 自定义包日志配置 -->
     <logger name="org.doubao" level="DEBUG" additivity="false">
         <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE_INFO" />
+        <appender-ref ref="FILE_ERROR" />
     </logger>
+
+    <!-- 第三方组件日志控制 -->
+    <logger name="org.springframework" level="WARN" />
+    <logger name="org.apache.http" level="WARN" />
+    <logger name="com.fasterxml.jackson" level="WARN" />
+
+    <!-- 新增：Tomcat 相关日志控制 -->
+    <logger name="org.apache.catalina" level="WARN"/>
+    <logger name="org.apache.coyote" level="WARN"/>
+    <logger name="org.apache.tomcat" level="WARN"/>
+    <logger name="tomcat" level="WARN"/>
+    <logger name="org.springframework.web" level="INFO"/>
 </configuration>

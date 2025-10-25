@@ -12,18 +12,18 @@
 ## 安装指南
 
 1. 克隆仓库：
+
    ```bash
    git clone https://gitee.com/Bitsea19/doubao-api-free.git
    ```
-
 2. 构建项目：
+
    ```bash
    mvn clean package
    ```
-
 3. 配置 `application.yml` 文件，设置豆包 API 的相关参数。
-
 4. 启动应用：
+
    ```bash
    java -jar target/doubao-api-free.jar
    ```
@@ -43,6 +43,18 @@
       "content": "你好"
     }
   ],
+  "stream": false // true(流式输出)
+}
+```
+
+### 生图接口
+
+发送 POST 请求至 `/api/doubao/v1/generations`，请求体格式如下：
+
+```json
+{
+  "prompt": "一只橘色的猫，躺在阳光下，卡通风格，高清画质，细节丰富，暖色调",
+  "model": "Seedream 4.0",
   "stream": false // true(流式输出)
 }
 ```

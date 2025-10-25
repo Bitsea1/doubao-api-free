@@ -1,24 +1,25 @@
+spring:
+  profiles:
+    active: dev
+
+--- # 端口
 server:
   port: 8080
 
---- # ??AI??????
+--- # 豆包AI
 doubao:
-  # ????????
   enabled: true
-  # ??API??URL?????????????
   base-url: https://www.doubao.com
-  # ????????????
   timeout: 180
-  # ????????????????1???
   session-ttl: 3600
-  # ????API??????????Bearer Token???
+  # API令牌 Bearer Token
   api-key: sk-sHf2Sf0ZFMMcmsC5SalYdEHul9R5xqhgW7SbDn4ij5jski4g
-  # ?????????????????????
+  # 参数配置
   accounts:
-    # ???????
-    - cookie: "_ga=GA1.1.283842130.1737104932; flow_user_country=CN; gd_random=eyJtYXRjaCI6dHJ1ZSwicGVyY2VudCI6MC42NDIyNTUwMjk0MjYzMDYyfQ==.0/lqH7HFA73Zja4AOHkCbSo25KiuG2bOzkBFdgie4z4=; i18next=zh; flow_ssr_sidebar_expand=1; s_v_web_id=verify_mf7o3zod_TeQTOhpy_v3w3_4hh7_99Ac_TV7gHgJrecS2; passport_csrf_token=4f5ca2c9f5d65db386cc30d7ad8bdf7a; passport_csrf_token_default=4f5ca2c9f5d65db386cc30d7ad8bdf7a; passport_mfa_token=CjcX5rmFNqaEYHFGYpIm3lvF6jmNsq%2F5uapPNqLM2rNgufB%2F2Y4LD7UBDp3WvcpibFe1OX29g%2FScGkoKPAAAAAAAAAAAAABPoH6RzLh13I%2FoBOeRtU63fQ8iVywf%2BCIA282CRmY17nXjUofGNx034%2B0w9H5lCYKXaxDeyf8NGPax0WwgAiIBA0R%2BtJ4%3D; d_ticket=ccfc1f680ea9280d69dd20722eafc3ac3d94c; odin_tt=1bae90db5b00b7ba88916MoRnbUfHBdCarU9683KT3AsB67n92UtF2efe2f0a35b885ae02be00fdf21d2441ce6b55594c672d0dd1111e9fa5ab703afd673df1b97; n_mh=-dn9P4qcY5YaMVNeL-G8vC6vi8prnl_Gl11Y7OWlHwvs; passport_auth_status=ef3bb21c0cd113173005f50402c07ae0%2Caacb374b49b206525110d51355fa9987; passport_auth_status_ss=ef3bb21c0cd113173005f50402c07ae0%2Caacb374b49b206525110d51355fa9987; sid_guard=695d01ed533110d07025dfe5d3ed852b%7C1761191367%7C2592000%7CSat%2C+22-Nov-2025+03%3A49%3A27+GMT; uid_tt=0510e7854dd4f4ab5d517fe326f3c614; uid_tt_ss=0510e7854dd4f4ab5d517fe326f3c614; sid_tt=0510e7854dd4f4ab5d517fe326f3c614; sessionid=3aa7bb87c6eeb0906760f16063aed75e; sessionid_ss=3aa7bb87c6eeb0906760f16063aed75e; session_tlb_tag=sttt%7C3%7CaV0B7VMxENBwJd_l0-2FK__________Io2tTbphv9NutK7xmN4R0Fiya_4K2YzCWp9AV-8IcnNY%3D; is_staff_user=false; sid_ucp_v1=1.0.0-KGMzZTAvEt14YScfTDHt2ZiSRqroaYZK98uykgshOTJhZDM3Y2YxZDAKHwiDitDk_MxREMfL5scGGMKxHiAMMLiU87MGOAJA8QcaAmxxIiA2OTAvEt14YScfTDHt2ZiSRqroaYZK98uykgskODUyYg; ssid_ucp_v1=1.0.0-KGMzZTAvEt14YScfTDHt2ZiSRqroaYZK98uykgshOTJhZDM3Y2YxZDAKHwiDitDk_MxREMfL5scGGMKxHiAMMLiU87MGOAJA8QcaAmxxIiA2OTAvEt14YScfTDHt2ZiSRqroaYZK98uykgskODUyYg; ttwid=1%7C9o3KgnjxeMHAWxbU8VyEv-9VtOjOP5QSubdZEz76MzY%7C1760493649%7C3b5f4d256b929c391e797659f243c5a2f151cc950d7d02b3a3670227de8570a2; passport_fe_beating_status=true; _ga_G8EP5CG8VZ=GS2.1.s1761266881$$o54$$g1$$t1761266919$$j22$$l0$$h0"
+    # cookie
+    - cookie: "_ga=GA1.1.2000657788.1742527204; store-region=cn-qh; store-region-src=uid; _qimei_uuid42=19701132d29100e8a575b5abe604cbd12288e956fb; _qimei_fingerprint=993e96dc0fbea51f4041862fd66cf052; _qimei_i_3=53c2798b965c068ec097ad38528321b1a1bfa2a440520ad1e28e7c502195273a696137943989e2a18a9c; _qimei_h38=; _qimei_i_1=53ba6683e726; hook_slardar_session_id=20250801222112424D102BB224EC69E6E2,ttwid=1%7CSOpT80APSox9TbIT7gSCLJvCiBG7Jsa5F4FpgyPh7co%7C1754058072%7C3ed464acab6fd32e4dd7cffb60ee55f8b0d81bded5e43ff851fb6bf3940d55a0; flow_user_country=CN; user_language_code=zh; i18next=zh; is_staff_user=false; flow_ssr_sidebar_expand=1; s_v_web_id=verify_mhj2f7lg_yHkl2ncF_YKBW_4sJd_98xY_sAPJiwza5rix; passport_csrf_token=89e6bdc96d43125b483de102633ca89e; passport_csrf_token_default=89e6bdc96d43125b483de102633ca89e; passport_mfa_token=CjfcpnlXDH7tReq%2B%2BC7bBKuhmQzH2bzGtDLTDYqKqlZHjVQ4Uf1V7%2FHN8%2BHZbt9WsmMLtP5%2B4nLlGkoKPAAAAAAAAAAAAABPqxq%2BPx%2FUOt%2BpD5oe%2BQ%2BfSHU6vkDI8GKMQew1p%2FtU2wsLJR%2BiTrNjHaXqGV9SFXjzIxC1x4AOGPax0WwgAiIBA7Oc2Ro%3D; d_ticket=bf6442a8b8b4db05061843efce6299bd24250; odin_tt=b9af086d76d988c44cbdd8922b6725aa7dabc6ac44945881250644b1202c68aac8ad6fe0012285cf34f0982f90a7882eb9e6673eb23616c52a823935864421e5; n_mh=dn9P4qcY5YaMVNeL-G8vC6vi8prnl_Gl11Y7OWlHwvs; passport_auth_status=f6172453b2751b74381730c3e54ab94f%2C0145a6e633fce00cbe6675d5a8dc501d; passport_auth_status_ss=f6172453b2751b74381730c3e54ab94f%2C0145a6e633fce00cbe6675d5a8dc501d; sid_guard=306127c0dcc0efcea60699fe8cf9ac5a%7C1762176944%7C2592000%7CWed%2C+03-Dec-2025+13%3A35%3A44+GMT; uid_tt=e96a3c1b692f4b80cf018c545583662f; uid_tt_ss=e96a3c1b692f4b80cf018c545583662f; sid_tt=306127c0dcc0efcea60699fe8cf9ac5a; sessionid=306127c0dcc0efcea60699fe8cf9ac5a; sessionid_ss=306127c0dcc0efcea60699fe8cf9ac5a; session_tlb_tag=sttt%7C14%7CMGEnwNzA786mBpn-jPmsWv_________aOED5BAgrESfcqwJR3MEyY4Q8P7UvwswZrx2gaEUrb6Y%3D; sid_ucp_v1=1.0.0-KGIzMzkyMmM4Mjc2MDBmOWNkNWQwYjY1OTQ5YTQ3MWI2YjVhYjRmM2EKHwiDitDk_MxRELDfosgGGMKxHiAMMLiU87MGOAJA8QcaAmhsIiAzMDYxMjdjMGRjYzBlZmNlYTYwNjk5ZmU4Y2Y5YWM1YQ; ssid_ucp_v1=1.0.0-KGIzMzkyMmM4Mjc2MDBmOWNkNWQwYjY1OTQ5YTQ3MWI2YjVhYjRmM2EKHwiDitDk_MxRELDfosgGGMKxHiAMMLiU87MGOAJA8QcaAmhsIiAzMDYxMjdjMGRjYzBlZmNlYTYwNjk5ZmU4Y2Y5YWM1YQ; passport_fe_beating_status=true; msToken=ldFMhAsACm9q2Bk38ZdbzG4xNP-IDNGsjfygkvw9JhvyvvxWV1VTHGWRtTXQoykBuAnyEpX0KOh_p2B-t8XWSnHu79ZM8Rq-0CuNc1llNaXhkDfcfBWsvibQVFx1WMJ4fGk=; ttwid=1%7CSOpT80APSox9TbIT7gSCLJvCiBG7Jsa5F4FpgyPh7co%7C1762176953%7C2e9fc3858362ae4d63c5c548b101a9987eec272c5d6bb770c6ed1785cf2f5971; gd_random=eyJtYXRjaCI6dHJ1ZSwicGVyY2VudCI6MC4zNzgwOTc0MjU0NjY5NDk5fQ==.O7k8a6t9t/YTzKeFllphhyfuRGmZzYHEA2s3HJKcwqA=; _ga_G8EP5CG8VZ=GS2.1.s1762176924$$o259$$g1$$t1762176955$$j29$$l0$$h0; tt_scid=disqXe.BRop7Ce-5o03PJ-xF8vYRhjhenBbwqaVtDkq.4Qc5xX9s-I.hyghn6lbcbafb"
       device-id: "7484097257500378660"
-      fp: "verify_mezr9frw_NlsxnFXB_8ZLc_4SYZ_9g8R_bSYVxVWa0MlM"
+      fp: "verify_mhj2f7lg_yHkl2ncF_YKBW_4sJd_98xY_sAPJiwza5rix"
       tea-uuid: "7484097239733896756"
       web-id: "7484097239733896756"
-      ms-token: "SksFlpwGiKDG22bcPst7XYiyBSmjcxhrrOVqeETfu2igEfsHx9p-WUlUU72D0TxkspbID4akPdB4-Qigzojt8mWVRcaycQr7WKmYoRg2g6XkfBbjLvGFGPkWAf96B4aS7XY0bi87Eeq6n9yOiZHtk_AouKljeDp4WgKdsbtgn2Mc"
+      ms-token: "zy3rcazyeSZux5X0F9qRZ4o-k0-NLU1gQEgjc12LOH6UGsx4fy9xdUW52N8NNFICBby3_m3nFV3f-4D4__nzvGQ5czB0Vix06bsil25SwTRf0ETuE_YZe6WU4dA4rVBNaXRCNaVTZcKbZUcal9p7miqBE65OF9e5uMJxzlA4BrVPOpe-tfATFA=="

@@ -21,7 +21,7 @@ import org.doubao.domain.vo.DoubaoModel;
 import org.doubao.domain.vo.SignatureResponse;
 import org.doubao.service.IDoubaoService;
 import org.doubao.service.ISignatureService;
-import org.doubao.util.SseUtils;
+import org.doubao.utils.SseUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -65,6 +65,7 @@ public class DoubaoServiceImpl implements IDoubaoService {
             "doubao-lite-chat", "7338286299411103782"
     );
 
+
     public DoubaoServiceImpl(DoubaoProperties doubaoProperties,
                              CloseableHttpClient httpClient,
                              ObjectMapper objectMapper,
@@ -99,7 +100,7 @@ public class DoubaoServiceImpl implements IDoubaoService {
             status.setActiveConnections(0);
             status.setLastFailTime(0L);
             accountStatusCache.put(accountKey, status);
-            log.info("初始化账号[{}]状态: 健康", accountKey);
+            log.info("初始化会话账号[{}]状态: 健康", accountKey);
         }
     }
 
@@ -397,10 +398,10 @@ public class DoubaoServiceImpl implements IDoubaoService {
             baseParams.put("sys_region", "CN");
             baseParams.put("use-olympus-account", "1");
             baseParams.put("version_code", "180");
+            System.out.println(account.getCookie());
 
             // 设备指纹参数
             baseParams.put("device_id", account.getDeviceId());
-            baseParams.put("fp", account.getFp());
             baseParams.put("tea_uuid", account.getTeaUuid());
             baseParams.put("web_id", account.getWebId());
             baseParams.put("web_tab_id", UUID.randomUUID().toString());
@@ -430,10 +431,10 @@ public class DoubaoServiceImpl implements IDoubaoService {
 
             SignatureResponse signatureResponse = signatureService.generateSignature(signatureRequest);
             if (signatureResponse.isSuccess()) {
-                log.info("签名生成成功[账号: {}]", getAccountKey(account));
+//                log.info("签名生成成功[账号: {}]", getAccountKey(account));
                 return signatureResponse.getSignedUrl();
             } else {
-                log.warn("签名生成失败[账号: {}]: {}", getAccountKey(account), signatureResponse.getError());
+//                log.warn("签名生成失败[账号: {}]: {}", getAccountKey(account), signatureResponse.getError());
                 return baseUrl + "?" + queryString;
             }
         } catch (Exception e) {

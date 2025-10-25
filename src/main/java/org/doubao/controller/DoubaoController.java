@@ -2,8 +2,10 @@ package org.doubao.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.doubao.domain.R;
+import org.doubao.domain.dto.ImageGenerationRequest;
+import org.doubao.domain.model.R;
 import org.doubao.domain.dto.ChatCompletionRequest;
+import org.doubao.service.IDoubaoImageService;
 import org.doubao.service.IDoubaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -17,6 +19,9 @@ public class DoubaoController {
     @Autowired
     private IDoubaoService doubaoService;
 
+    @Autowired
+    private IDoubaoImageService doubaoImageService;
+
     @PostMapping("/chat/completions")
     public Object chatCompletions(@Validated @RequestBody ChatCompletionRequest request,
                                   HttpServletRequest httpRequest) {
@@ -29,6 +34,29 @@ public class DoubaoController {
             return doubaoService.chatCompletionsStream(request, apiKey);
         } else {
             return R.ok(doubaoService.chatCompletions(request, apiKey));
+        }
+    }
+
+    /**
+     * 生图接口（支持流式和非流式）
+     * 流式返回：实时推送生成进度和结果
+     * 非流式返回：直接返回最终图片URL
+     */
+    @PostMapping("/generations")
+    public Object generateImages(@Validated @RequestBody ImageGenerationRequest request,
+                                 HttpServletRequest httpRequest) {
+        String apiKey = extractApiKey(httpRequest);
+        log.info("收到生图请求，API Key: {}, 模型: {}, 流式: {}",
+                apiKey != null ? "***" + apiKey.substring(Math.max(0, apiKey.length() - 4)) : "null",
+                request.getModel(), request.getStream());
+
+        // 流式生图（返回SSE流）
+        if (Boolean.TRUE.equals(request.getStream())) {
+            return doubaoImageService.generateImageStream(request, apiKey);
+        }
+        // 非流式生图（返回JSON结果）
+        else {
+            return R.ok(doubaoImageService.generateImage(request, apiKey));
         }
     }
 

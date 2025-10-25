@@ -27,8 +27,8 @@ public class SignatureServiceImpl implements ISignatureService {
     @Override
     public SignatureResponse generateSignature(SignatureRequest request) {
         try {
-            log.info("生成签名，URL: {}, 参数长度: {}", request.getUrl(),
-                request.getParams() != null ? request.getParams().length() : 0);
+//            log.info("生成签名，URL: {}, 参数长度: {}", request.getUrl(),
+//                request.getParams() != null ? request.getParams().length() : 0);
 
             // 正确构建签名URL
             String signedUrl = buildCorrectSignedUrl(request.getUrl(), request.getParams());
@@ -38,7 +38,7 @@ public class SignatureServiceImpl implements ISignatureService {
             response.setSignedUrl(signedUrl);
             response.setSuccess(true);
 
-            log.info("签名生成成功: {}", signedUrl);
+//            log.info("签名生成成功: {}", signedUrl);
             return response;
 
         } catch (Exception e) {
@@ -68,13 +68,12 @@ public class SignatureServiceImpl implements ISignatureService {
             builder.queryParam("a_bogus", "s-7d10B3a4C5e6F7g8");
 
             String signedUrl = builder.build().toUriString();
-            log.info("构建签名URL: {}", signedUrl);
+//            log.info("构建签名URL: {}", signedUrl);
 
             return signedUrl;
 
         } catch (Exception e) {
             log.error("构建签名URL失败", e);
-            // 返回未签名的URL作为备选
             return baseUrl + "?" + params + "&a_bogus=s-7d10B3a4C5e6F7g8";
         }
     }
