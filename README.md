@@ -40,10 +40,10 @@
   "messages": [
     {
       "role": "user",
-      "content": "你好，豆包！"
+      "content": "你好"
     }
   ],
-  "stream": false
+  "stream": false // true(流式输出)
 }
 ```
 
