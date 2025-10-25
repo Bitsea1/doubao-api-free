@@ -47,35 +47,6 @@
 }
 ```
 
-### 图像生成
-
-发送 POST 请求至 `/api/doubao/v1/chat/completions`，请求体格式如下：
-
-```json
-{
-  "model": "doubao-pro",
-  "messages": [
-    {
-      "role": "user",
-      "content": "生成一张图片，内容为一只可爱的猫咪。"
-    }
-  ],
-  "stream": false
-}
-```
-
-### 签名服务
-
-发送 POST 请求至 `/api/doubao/v1/signature`，请求体格式如下：
-
-```json
-{
-  "url": "https://api.doubao.com/chat/completions",
-  "cookie": "your_cookie",
-  "params": "your_params"
-}
-```
-
 ### 健康检查
 
 发送 GET 请求至 `/api/doubao/v1/health`，检查服务的健康状态。
