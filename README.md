@@ -9,6 +9,18 @@
 - **图像生成**：支持与豆包模型进行交互，实现文生图。
 - **健康检查**：提供健康检查接口，确保服务的可用性。
 
+## 接入准备
+
+第一步：
+
+进入豆包登录账号，然后F12打开开发者工具，新会话中发送”你好“，找到请求会话接口：completion?aid=497858&device\_id=7484097257500378660，选中接口鼠标右击找到Copy => Copy as cUrl(bash),复制后找到--H 'cookie: cookie值
+
+第二步：
+
+继续找到请求会话接口：completion?aid=497858&device\_id=7484097257500378660，点击进入PayLoad，依次device\_id、fp、tea\_uuid、web\_id、msToken。
+
+![image.png](assets/image.png)
+
 ## 安装指南
 
 1. 克隆仓库：
