@@ -1,4 +1,4 @@
-# DouBao API Free
+<img width="1920" height="995" alt="image" src="https://github.com/user-attachments/assets/c2be60f7-6f85-4d05-ba80-fb0cd8ac4e5e" /># DouBao API Free
 
 该项目为豆包（Doubao）API 提供了一个免费的接口服务，支持聊天（已支持）、文档解读（计划支持）、图像生成（已支持）等功能。适合需要使用豆包 AI 能力的开发者使用。
 
@@ -19,7 +19,8 @@
 
 继续找到请求会话接口：completion?aid=497858&device\_id=7484097257500378660，点击进入PayLoad，依次device\_id、fp、tea\_uuid、web\_id、msToken。
 
-![image.png](assets/image.png)
+<img width="1920" height="995" alt="image" src="https://github.com/user-attachments/assets/97c42706-e665-4ca0-9b5f-17b673d0e6ed" />
+
 
 ## 安装指南
 
