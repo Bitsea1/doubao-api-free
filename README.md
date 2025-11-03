@@ -1,4 +1,4 @@
-<img width="1920" height="995" alt="image" src="https://github.com/user-attachments/assets/c2be60f7-6f85-4d05-ba80-fb0cd8ac4e5e" /># DouBao API Free
+# DouBao API Free
 
 该项目为豆包（Doubao）API 提供了一个免费的接口服务，支持聊天（已支持）、文档解读（计划支持）、图像生成（已支持）等功能。适合需要使用豆包 AI 能力的开发者使用。
 
