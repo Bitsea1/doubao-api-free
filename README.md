@@ -19,7 +19,8 @@
 
 继续找到请求会话接口：completion?aid=497858&device\_id=7484097257500378660，点击进入PayLoad，依次device\_id、fp、tea\_uuid、web\_id、msToken。
 
-![image.png](assets/image.png)
+<img width="1920" height="995" alt="image" src="https://github.com/user-attachments/assets/97c42706-e665-4ca0-9b5f-17b673d0e6ed" />
+
 
 ## 安装指南
 
