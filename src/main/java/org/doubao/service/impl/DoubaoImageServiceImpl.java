@@ -377,16 +377,33 @@ public class DoubaoImageServiceImpl implements IDoubaoImageService {
     }
 
     /**
-     * 构建生图请求体
+     * 构建生图请求体 - 支持比例参数
      */
     private String buildImagePayload(ImageGenerationRequest request, String conversationId) throws JsonProcessingException {
         Map<String, Object> payload = new HashMap<>();
 
-        // 构建消息列表
-        List<Map<String, Object>> messages = new ArrayList<>();
+        // 支持比例参数
         Map<String, Object> messageContent = new HashMap<>();
         messageContent.put("text", request.getPrompt());
 
+        // 添加比例参数（如果提供了比例）
+        if (request.getRatio() != null && !request.getRatio().trim().isEmpty()) {
+            messageContent.put("ratio", request.getRatio());
+        }
+
+        // 添加模型参数
+        if (request.getModel() != null && !request.getModel().trim().isEmpty()) {
+            messageContent.put("model", request.getModel());
+        } else {
+            messageContent.put("model", DEFAULT_IMAGE_MODEL);
+        }
+
+        // 添加模板类型参数
+        messageContent.put("template_type", "placeholder");
+        messageContent.put("use_creation", false);
+
+        // 构建消息列表
+        List<Map<String, Object>> messages = new ArrayList<>();
         Map<String, Object> message = new HashMap<>();
         message.put("content", objectMapper.writeValueAsString(messageContent));
         message.put("content_type", 2009);
@@ -404,7 +421,7 @@ public class DoubaoImageServiceImpl implements IDoubaoImageService {
         completionOption.put("is_replace", false);
         completionOption.put("is_delete", false);
         completionOption.put("message_from", 0);
-        completionOption.put("action_bar_skill_id", 0);
+        completionOption.put("action_bar_skill_id", 3);
         completionOption.put("use_deep_think", false);
         completionOption.put("use_auto_cot", true);
         completionOption.put("resend_for_regen", false);
