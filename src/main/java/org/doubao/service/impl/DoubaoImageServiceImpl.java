@@ -424,7 +424,7 @@ public class DoubaoImageServiceImpl implements IDoubaoImageService {
     }
 
     /**
-     * 解析生图响应
+     * 解析生图响应 - 无水印版本
      */
     private ImageGenerationResponse parseImageResponse(CloseableHttpResponse response, String model) throws IOException, ParseException {
         String responseBody = EntityUtils.toString(response.getEntity());
@@ -471,16 +471,16 @@ public class DoubaoImageServiceImpl implements IDoubaoImageService {
                     JsonNode contentNode = objectMapper.readTree(contentStr);
                     JsonNode imageDataArrayNode = contentNode.get("data");
 
-                    // 提取每张图片的原始URL（image_ori.url）
                     if (imageDataArrayNode != null && imageDataArrayNode.isArray()) {
                         for (JsonNode imageItemNode : imageDataArrayNode) {
-                            JsonNode imageOriNode = imageItemNode.get("image_ori");
-                            if (imageOriNode != null) {
-                                JsonNode imageUrlNode = imageOriNode.get("url");
+                            JsonNode imageRawNode = imageItemNode.get("image_raw");
+                            if (imageRawNode != null) {
+                                JsonNode imageUrlNode = imageRawNode.get("url");
                                 if (imageUrlNode != null && !imageUrlNode.asText().trim().isEmpty()) {
                                     String imageUrl = imageUrlNode.asText().trim();
+                                    imageUrl = fixUrlEscapeCharacters(imageUrl);
                                     imageUrls.add(imageUrl);
-                                    log.debug("提取到图片URL: {}", imageUrl);
+                                    log.debug("提取到无水印图片URL: {}", imageUrl);
                                 }
                             }
                         }
@@ -488,12 +488,10 @@ public class DoubaoImageServiceImpl implements IDoubaoImageService {
                 }
             }
 
-            // 校验是否提取到图片URL
             if (imageUrls.isEmpty()) {
                 throw new ServiceException("未从响应中提取到有效图片URL，请检查响应结构或生图服务状态");
             }
 
-            // 构建返回结果
             ImageGenerationResponse result = new ImageGenerationResponse();
             result.setModel(Optional.ofNullable(model).orElse(DEFAULT_IMAGE_MODEL));
             List<ImageGenerationResponse.ImageData> imageDataList = imageUrls.stream()
@@ -515,7 +513,7 @@ public class DoubaoImageServiceImpl implements IDoubaoImageService {
             return result;
 
         } catch (JsonProcessingException e) {
-            log.error("JSON解析失败（可能是双重转义处理异常）", e);
+            log.error("JSON解析失败", e);
             throw new ServiceException("生图响应JSON解析失败: " + e.getMessage());
         } catch (ServiceException e) {
             throw e;
@@ -526,7 +524,7 @@ public class DoubaoImageServiceImpl implements IDoubaoImageService {
     }
 
     /**
-     * 处理流式生图响应（与非流式解析逻辑保持一致）
+     * 处理流式生图响应 - 无水印版本
      */
     private void processImageStreamResponse(CloseableHttpResponse response, SseEmitter emitter,
                                             String connectionId, String requestId, String model) throws IOException {
@@ -598,16 +596,16 @@ public class DoubaoImageServiceImpl implements IDoubaoImageService {
                             JsonNode contentNode = objectMapper.readTree(contentStr);
                             JsonNode imageDataArrayNode = contentNode.get("data");
 
-                            // 提取原始图片URL
                             if (imageDataArrayNode != null && imageDataArrayNode.isArray()) {
                                 for (JsonNode imageItemNode : imageDataArrayNode) {
-                                    JsonNode imageOriNode = imageItemNode.get("image_ori");
-                                    if (imageOriNode != null) {
-                                        JsonNode imageUrlNode = imageOriNode.get("url");
+                                    JsonNode imageRawNode = imageItemNode.get("image_raw"); // 改为获取image_raw
+                                    if (imageRawNode != null) {
+                                        JsonNode imageUrlNode = imageRawNode.get("url");
                                         if (imageUrlNode != null && !imageUrlNode.asText().trim().isEmpty()) {
                                             String imageUrl = imageUrlNode.asText().trim();
+                                            imageUrl = fixUrlEscapeCharacters(imageUrl);
                                             imageUrls.add(imageUrl);
-                                            log.debug("流式提取到图片URL: {}", imageUrl);
+                                            log.debug("流式提取到无水印图片URL: {}", imageUrl);
                                         }
                                     }
                                 }
@@ -615,7 +613,7 @@ public class DoubaoImageServiceImpl implements IDoubaoImageService {
                         }
 
                     } catch (JsonProcessingException e) {
-                        log.error("流式JSON解析失败（双重转义问题），数据: {}", dataStr, e);
+                        log.error("流式JSON解析失败，数据: {}", dataStr, e);
                         sendImageSseError(emitter, connectionId, "解析生图进度失败: " + e.getMessage());
                     } catch (Exception e) {
                         log.warn("处理生图流式数据异常: {}", dataStr, e);
@@ -657,6 +655,23 @@ public class DoubaoImageServiceImpl implements IDoubaoImageService {
                 emitter.complete();
             }
         }
+    }
+
+    /**
+     * 修复转义字符问题
+     */
+    private String fixUrlEscapeCharacters(String url) {
+        if (url == null || url.isEmpty()) {
+            return url;
+        }
+
+        String fixedUrl = url.replace("\\\\u0026", "&");
+
+        fixedUrl = fixedUrl.replace("\\\\u003d", "=");
+        fixedUrl = fixedUrl.replace("\\\\u0025", "%");
+
+        log.debug("URL转义修复: {} -> {}", url, fixedUrl);
+        return fixedUrl;
     }
 
     // 发送错误事件的工具方法
